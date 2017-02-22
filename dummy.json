@@ -1,0 +1,79 @@
+{
+"user" : 
+	{	"rezaramadhan@gmail.com": {
+			"username" : "rezaramadhan",
+			"fullname" : "M. Reza Ramadhan",
+			"exp" : 1000,
+			"money" : 100,
+			"highscore" : 10
+		},
+		"resakemal@gmail.com": {
+			"username" : "resakemal",
+			"fullname" : "Resa K. S.",
+			"exp" : 2000,
+			"money" : 200,
+			"highscore" : 20
+		},
+		"umay@gmail.com": {
+			"username" : "umay",
+			"fullname" : "Sri Umay N.S.",
+			"exp" : 3000,
+			"money" : 300,
+			"highscore" : 30
+		}								
+	},
+"friends" :
+	{	"rezaramadhan" : 
+		[ {"uname" : "resakemal"}, {"uname" : "umay"}],					
+		"resakemal" : 
+		[ {"uname" : "rezaramadhan"}],					
+		"umay" : 
+		[{"uname" : "resakemal"}]					
+	}
+,
+"storeitem" : 
+	{	"pet" : 
+		[ 	{"name" : "rabbit", "price" : 1000}, 
+			{"name" : "otter", "price" : 5000},
+			{"name" : "cat", "price" : 10000}
+		],
+		"fruits" : 
+		[ 	{"name" : "orange", "price" : 100}, 
+			{"name" : "grape", "price" : 200},
+			{"name" : "mango", "price" : 500},
+			{"name" : "chilli", "price" : 50}
+		],
+		"other" : 
+		[	{"name" : "expboost", "price" : 10000}
+		]					
+	},
+"userpet" : {
+	"rezaramadhan" : 
+		[ 	{"name" : "bobo", "lv" : 3, "exp" : 5000}
+		],					
+	"umay" : 
+		[	{"name" : "bona", "lv" : 1, "exp" : 1400},
+			{"name" : "rongrong", "lv" : 3, "exp" : 400},
+			{"name" : "nirmala", "lv" : 5, "exp" : 50}]
+},
+"useritem" : {
+	"resa" : 
+		{	"fruits" : 
+			[ 	{"name" : "orange", "quantity" : 5}, 
+				{"name" : "grape", "quantity" : 1},
+				{"name" : "mango", "quantity" : 3},
+				{"name" : "chilli", "quantity" : 7}
+			]					
+		},					
+	"umay" : 
+		{	"fruits" : 
+			[ 	{"name" : "orange", "quantity" : 0}, 
+				{"name" : "chilli", "quantity" : 27}
+			]					
+		}
+},
+"currentloc" : {
+	"bandung" : [ {"uname" : "rezaramadhan"}, {"uname" : "umay"} ],
+	"jakarta" : [ {"uname" : "resakemal"}]
+}
+}	
