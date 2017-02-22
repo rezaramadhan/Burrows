@@ -19,7 +19,8 @@
         <activity android:name=".ShopActivity" />
         <activity android:name=".FriendsActivity" />
         <activity android:name=".AchievementActivity" />
-        <activity android:name=".ItemsActivity"></activity>
+        <activity android:name=".ItemsActivity" />
+        <activity android:name=".RegisterActivity"></activity>
     </application>
 
 </manifest>
