@@ -9,7 +9,6 @@ import android.widget.EditText;
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class LoginActivity extends AppCompatActivity {
-    public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +18,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void goToReg(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
-        EditText editText = (EditText) findViewById(R.id.formUsername);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
 }

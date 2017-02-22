@@ -8,52 +8,68 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="id.wesudgitgud.burrows.LoginActivity">
-
+    android:background="@drawable/bg_start"
+    tools:context="id.wesudgitgud.burrows.RegisterActivity">
     <Button
-        android:layout_width="100pt"
-        android:layout_height="30pt"
+        android:layout_width="70pt"
+        android:layout_height="25pt"
         android:id="@+id/btnLogin"
-        android:text="Register"
+        android:background="@drawable/btn_register"
         android:layout_marginBottom="40dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="150pt"
-        android:layout_height="20pt"
-        android:background="@color/colorAccent"
-        android:id="@+id/formUsernameReg"
-        android:layout_marginBottom="12dp"
-        android:layout_above="@+id/btnLogin"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="150pt"
-        android:layout_height="20pt"
-        android:background="@color/colorAccent"
-        android:id="@+id/formFullnameReg"
-        android:layout_above="@+id/formPasswordReg"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="11dp" />
+        android:onClick="goToLogin"/>
 
     <EditText
-        android:layout_width="150pt"
+        android:layout_width="130pt"
         android:layout_height="20pt"
-        android:background="@color/colorAccent"
-        android:id="@+id/formPasswordReg"
-        android:layout_marginBottom="16dp"
-        android:layout_above="@+id/formUsernameReg"
+        android:background="#AAFFFFFF"
+        android:id="@+id/formPassword"
+        android:hint="password"
+        android:textAlignment="center"
+        android:layout_above="@+id/btnLogin"
+        android:layout_alignLeft="@+id/formUsername"
+        android:layout_alignStart="@+id/formUsername"
+        android:layout_marginBottom="10dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_burrows_main"
+        android:layout_above="@+id/formUsername"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="57dp"
+        android:id="@+id/imageView" />
+
+    <EditText
+        android:layout_width="130pt"
+        android:layout_height="20pt"
+        android:background="#AAFFFFFF"
+        android:id="@+id/formFullname"
+        android:hint="fullname"
+        android:textAlignment="center"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/formUsername"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="130pt"
+        android:layout_height="20pt"
+        android:background="#AAFFFFFF"
+        android:id="@+id/formUsername"
+        android:hint="username"
+        android:textAlignment="center"
+        android:layout_above="@+id/formPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Already have an account? Login"
         android:id="@+id/textView"
-        android:layout_marginBottom="23dp"
+        android:layout_marginBottom="22dp"
+        android:onClick="goToLogin"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
-
-
 </RelativeLayout>
