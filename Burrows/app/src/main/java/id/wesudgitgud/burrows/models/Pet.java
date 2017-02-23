@@ -2,6 +2,7 @@ package id.wesudgitgud.burrows.models;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,28 +19,29 @@ import java.net.URL;
  * Created by rezaramadhan on 23/02/2017.
  */
 
-public class User {
-    private String TAG = "User_Model";
-
-    public String fullname;
-    public String email;
+public class Pet {
+    private final String TAG = "Pet_Model";
+    public String name;
     public int exp;
-    public int money;
-    public int highscore;
+    public int lv;
 
-    public User() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    public Pet() {
+
     }
 
-    public User(String fullname, String email) {
-        this.fullname = fullname;
-        this.email = email;
+    public Pet(String name, int exp, int lv) {
+        this.name = name;
+        this.exp = exp;
+        this.lv = lv;
+    }
+
+    public Pet(String name) {
+        this.name = name;
         this.exp = 0;
-        this.money = 1000;
-        this.highscore = 0;
+        this.lv = 1;
     }
 
-    public void retrieveUserData(String username) {
+    public void retrievePetData(int username, int petid) {
         String location = "https://burrows-a36e9.firebaseio.com/user/" + username + ".json";
 
         Log.d(TAG, "loc:\n" + location);
@@ -51,7 +53,7 @@ public class User {
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             String resultJSON = getStringFromInputStream(in);
             Log.d(TAG, "result \n" + resultJSON);
-            parseJSON(resultJSON);
+            parseJSON(resultJSON, petid);
             urlConnection.disconnect();
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -73,23 +75,19 @@ public class User {
         return out.toString();
     }
 
-    private void parseJSON(String json) throws JSONException {
-        JSONObject reader = new JSONObject(json);
-        this.email = reader.getString("email");
-        this.exp = reader.getInt("exp");
-        this.fullname = reader.getString("fullname");
-        this.highscore = reader.getInt("highscore");
-        this.money = reader.getInt("money");
+    public void parseJSON(String json, int id) throws JSONException {
+        JSONArray reader = new JSONArray(json);
+        name = reader.getJSONObject(id).getString("name");
+        exp = reader.getJSONObject(id).getInt("exp");
+        lv = reader.getJSONObject(id).getInt("lv");
     }
 
     @Override
     public String toString() {
         String str = "";
-        str += "fullname " + fullname;
-        str += "\nemail " + email;
-        str += "\nexp " + exp;
-        str += "\nhighscore " + highscore;
-        str += "\nmoney " + money;
+        str += "name " + this.name;
+        str += "\nexp " + this.exp;
+        str += "\nlv " + lv;
         return str;
     }
 }

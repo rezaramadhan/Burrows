@@ -5,6 +5,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -14,6 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,6 +28,10 @@ public class RegisterActivity extends AppCompatActivity {
     private DatabaseReference firebaseDatabase;
     private DatabaseReference userDatabase;
 
+    private EditText fieldEmail;
+    private EditText fieldPassword;
+    private EditText fieldFullName;
+    private EditText fieldUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,12 @@ public class RegisterActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance().getReference();
 
         userDatabase = firebaseDatabase.child("user");
+
+        fieldEmail = ((EditText) findViewById(R.id.formEmail));
+        fieldPassword = ((EditText) findViewById(R.id.formPassword));
+        fieldUsername = ((EditText) findViewById(R.id.formUsername));
+        fieldFullName = ((EditText) findViewById(R.id.formFullname));
+
     }
 
     public void goToLogin(View view){
@@ -53,7 +66,33 @@ public class RegisterActivity extends AppCompatActivity {
 //        addUsertoDB("bagus@gmail.com", "bagus", "Bagus Sekali");
     }
 
+    private boolean validateForm() {
+        boolean valid = true;
+
+        if (TextUtils.isEmpty(fieldEmail.getText().toString())) {
+            valid = false;
+            fieldEmail.setError("Required.");
+        }
+        if (TextUtils.isEmpty(fieldPassword.getText().toString())) {
+            valid = false;
+            fieldPassword.setError("Required.");
+        }
+        if (TextUtils.isEmpty(fieldUsername.getText().toString())) {
+            valid = false;
+            fieldUsername.setError("Required.");
+        }
+        if (TextUtils.isEmpty(fieldFullName.getText().toString())) {
+            valid = false;
+            fieldFullName.setError("Required.");
+        }
+
+        return valid;
+    }
+
     private void createNewUser(final String email, String password, final String username, final String fullname) {
+        if (!validateForm())
+            return;
+
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -79,6 +118,24 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void addUsertoDB(String email, String username, String fullname) {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (firebaseUser != null) {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(username)
+                    .build();
+
+            firebaseUser.updateProfile(profileUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "User profile updated.");
+                            }
+                        }
+                    });
+        }
+
         User newuser = new User(email, fullname);
 
         Log.d(TAG, "createuser");

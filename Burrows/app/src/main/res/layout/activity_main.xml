@@ -81,4 +81,11 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:text="item"
+        android:id="@+id/btnItem"
+        android:layout_height="wrap_content"
+        android:onClick="gotoItem"/>
 </RelativeLayout>
