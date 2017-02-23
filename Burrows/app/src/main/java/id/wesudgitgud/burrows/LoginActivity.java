@@ -1,9 +1,11 @@
 package id.wesudgitgud.burrows;
 
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +18,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONException;
+
+import id.wesudgitgud.burrows.models.Pet;
+import id.wesudgitgud.burrows.models.User;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private String TAG = "LoginActivity";
@@ -41,6 +48,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         findViewById(R.id.btnLogin).setOnClickListener(this);
         findViewById(R.id.textRegister).setOnClickListener(this);
+
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
     }
 
 
@@ -48,6 +63,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btnLogin)
+//            check();
             login(fieldEmail.getText().toString(), fieldPassword.getText().toString());
         else if (id == R.id.textRegister)
             changeToRegisterActivity();
@@ -58,7 +74,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
     }
 
+    private void check() {
+        Pet p = new Pet();
+
+        try {
+            p.parseJSON("[{\"exp\":1400,\"lv\":1,\"name\":\"bona\"},{\"exp\":400,\"lv\":3,\"name\":\"rongrong\"},{\"exp\":50,\"lv\":5,\"name\":\"nirmala\"}]", 1);
+            Log.d(TAG, "petparsing\n" + p.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private boolean validateForm() {
+        boolean valid = true;
+
+        if (TextUtils.isEmpty(fieldEmail.getText().toString())) {
+            valid = false;
+            fieldEmail.setError("Required.");
+        }
+
+        if (TextUtils.isEmpty(fieldPassword.getText().toString())) {
+            valid = false;
+            fieldPassword.setError("Required.");
+        }
+
+        return valid;
+    }
+
     private void login(String email, String password){
+        if (!validateForm())
+            return;
+
         Log.d(TAG, "try_login " + email + " " + password);
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -70,7 +117,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // signed in user can be handled in the listener.
                 if (!task.isSuccessful()) {
                     Log.w(TAG, "signInWithEmail:failed", task.getException());
-                    Toast.makeText(LoginActivity.this, "Failed to login",
+                    Toast.makeText(LoginActivity.this, task.getException().getMessage(),
                             Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(LoginActivity.this, "Login success",
