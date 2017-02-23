@@ -40,6 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void gotoItem(View v) {
-        startActivity(new Intent(MainActivity.this, ShopActivity.class));
+        startActivity(new Intent(MainActivity.this, ItemsActivity.class));
     }
 }
