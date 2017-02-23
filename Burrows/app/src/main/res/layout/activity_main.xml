@@ -43,7 +43,24 @@
                     android:id="@+id/imageView2"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:text="shop"
+                    android:id="@+id/btnShop"
+                    android:layout_height="wrap_content"
+                    android:onClick="gotoShop"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:text="item"
+        android:id="@+id/btnItem"
+        android:layout_height="wrap_content"
+        android:onClick="gotoItem"/>
 </RelativeLayout>
