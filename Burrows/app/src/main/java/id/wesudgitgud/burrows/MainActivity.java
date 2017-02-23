@@ -18,6 +18,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void gotoItem(View v) {
-        startActivity(new Intent(MainActivity.this, ShopActivity.class));
+        startActivity(new Intent(MainActivity.this, ItemsActivity.class));
     }
 }
