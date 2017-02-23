@@ -17,7 +17,8 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/header">
+            android:id="@+id/header"
+            android:background="@color/colorAccent">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -33,17 +34,51 @@
             android:id="@+id/menu_opt">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/pet_rabbit"
-                    android:id="@+id/imageView2"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/btnPrev"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="prev"
+                    android:background="@color/colorAccent"/>
             </RelativeLayout>
+            <RelativeLayout
+                android:layout_weight="8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ViewFlipper
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/viewFlipper">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/pet_beaver"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/pet_mouse"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/pet_rabbit"/>
+
+                </ViewFlipper>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/btnNext"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="next"
+                    android:background="@color/colorAccent"/>
+            </RelativeLayout>
+
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -59,6 +59,6 @@
         android:src="@drawable/logo_burrows_main"
         android:layout_above="@+id/formUsername"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="57dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/imageView" />
 </RelativeLayout>
