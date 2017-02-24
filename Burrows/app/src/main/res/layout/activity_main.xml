@@ -5,43 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="id.wesudgitgud.burrows.MainActivity">
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:id="@+id/header"
-            android:background="@color/colorAccent">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/info_bar"></LinearLayout>
-        </LinearLayout>
+        <include layout="@layout/inc_title_menu_bar"></include>
 
         <LinearLayout
             android:orientation="horizontal"
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:id="@+id/menu_opt">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></RelativeLayout>
+
                 <Button
                     android:id="@+id/btnPrev"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:text="prev"
-                    android:background="@color/colorAccent"/>
+                    android:layout_width="70dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/ic_prev"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_weight="8"
@@ -51,7 +43,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/viewFlipper">
-
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -59,33 +50,32 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/pet_mouse"/>
-
+                        android:src="@drawable/pet_mouse"
+                        android:padding="20dp"/>
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/pet_rabbit"/>
-
                 </ViewFlipper>
             </RelativeLayout>
             <RelativeLayout
+
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></RelativeLayout>
+
                 <Button
                     android:id="@+id/btnNext"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:text="next"
-                    android:background="@color/colorAccent"/>
+                    android:layout_width="70dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/ic_next"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
             </RelativeLayout>
-
         </LinearLayout>
+        <include layout="@layout/inc_menu_bar"></include>
     </LinearLayout>
-
-    <Button
-        android:layout_width="match_parent"
-        android:text="item"
-        android:id="@+id/btnItem"
-        android:layout_height="wrap_content"
-        android:onClick="gotoItem"/>
 </RelativeLayout>
