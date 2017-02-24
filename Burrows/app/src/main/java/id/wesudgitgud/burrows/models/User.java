@@ -92,4 +92,33 @@ public class User {
         str += "\nmoney " + money;
         return str;
     }
+
+    public static String getTokenFromUsername (String username) {
+        String location = "https://burrows-a36e9.firebaseio.com/user/" + username + "/token.json";
+
+        URL url;
+        HttpURLConnection urlConnection;
+        try {
+            url = new URL(location);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            StringBuilder out = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                out.append(line);
+            }
+
+            String token = out.toString();
+
+            urlConnection.disconnect();
+            return token;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
 }
