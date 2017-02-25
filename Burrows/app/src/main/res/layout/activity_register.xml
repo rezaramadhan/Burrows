@@ -77,13 +77,12 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>
 
-    <ImageView
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/logo_burrows_main"
-        android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp" />
+        android:layout_above="@+id/formUsername"
+        android:layout_marginBottom="57dp"
+        android:id="@+id/imageTitle" />
 </RelativeLayout>
