@@ -29,7 +29,7 @@ Buy fruits to level up your pets!
 There's lots of them to collect~    
 You can also view your fruits in the Items menu!  
 
-### Collect Achievements & Share
+### Collect Achievements & Share Highscore
 
 Want to brag to your friends? Now you can!  
 Adore your highscore and achievements!  
@@ -42,3 +42,4 @@ You can also stalk them (lol)
 ------
 1. Get APK file
 2. Install APK on device
+And done!
