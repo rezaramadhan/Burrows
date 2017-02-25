@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (id == R.id.btnLogin)
 //            check();
 //            login(fieldEmail.getText().toString(), fieldPassword.getText().toString());
-            login("cobacoba@gmail.com", fieldPassword.getText().toString());
+            login("tes@tes.com", "testes");
 
         else if (id == R.id.textRegister)
             changeToRegisterActivity();
