@@ -48,14 +48,16 @@
 
 
         <LinearLayout
+            android:id="@+id/container"
             android:orientation="vertical"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp">
 
-            <include layout="@layout/inc_friend_panel"></include>
 
         </LinearLayout>
+
+
 
         <include layout="@layout/inc_menu_bar"></include>
     </LinearLayout>
