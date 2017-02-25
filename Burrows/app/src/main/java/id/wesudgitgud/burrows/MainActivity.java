@@ -3,6 +3,7 @@ package id.wesudgitgud.burrows;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
@@ -60,7 +61,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private GoogleApiClient mGoogleApiClient;
     private AddressResultReceiver mResultReceiver;
-    private Location mLocation;
+    //private Location mLocation;
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +89,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .addApi(LocationServices.API)
                 .build();
 
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            Log.d("gps_on","GPS is on");
             Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
         }else{
+            Log.d("gps_off","GPS is off");
             showGPSDisabledAlertToUser();
         }
 
@@ -100,6 +104,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         mResultReceiver = new AddressResultReceiver(new android.os.Handler());
+
+        SharedPreferences settings = getPreferences(MODE_PRIVATE);
+        int current = settings.getInt("petnum",0);
+        ViewFlipper pet_image = (ViewFlipper) findViewById(R.id.viewFlipper);
+        pet_image.setDisplayedChild(current);
+
+        Log.d("petnum_start",String.valueOf(current));
     }
 
     @Override
@@ -216,20 +227,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void onStop() {
         mGoogleApiClient.disconnect();
+        SharedPreferences settings = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        ViewFlipper pet_image = (ViewFlipper) findViewById(R.id.viewFlipper);
+        int current = pet_image.getDisplayedChild();
+        editor.putInt("petnum",current);
+        editor.commit();
+
+        Log.d("petnum_end",String.valueOf(current));
+
         super.onStop();
     }
 
     @Override
     @SuppressWarnings({"MissingPermission"})
     public void onConnected(@Nullable Bundle bundle) {
-        LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setPriority(PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(UPDATE_INTERVAL);
-        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-
-        mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        startIntentService();
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            LocationRequest mLocationRequest = new LocationRequest();
+            mLocationRequest.setPriority(PRIORITY_HIGH_ACCURACY);
+            mLocationRequest.setInterval(UPDATE_INTERVAL);
+            mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            Location mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            startIntentService(mLocation);
+        }
     }
 
     @Override
@@ -245,29 +266,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onLocationChanged(Location location) {
-        mLocation = location;
-        startIntentService();
+        startIntentService(location);
     }
 
     private void showGPSDisabledAlertToUser(){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
-                .setCancelable(false)
-                .setPositiveButton("Goto Settings Page To Enable GPS",
-                        new DialogInterface.OnClickListener(){
-                            public void onClick(DialogInterface dialog, int id){
-                                Intent callGPSSettingIntent = new Intent(
-                                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                startActivity(callGPSSettingIntent);
-                            }
-                        });
-        alertDialogBuilder.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int id){
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = alertDialogBuilder.create();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setMessage("GPS is disabled in your device. Would you like to enable it?");
+        builder.setPositiveButton("Go to settings to enable GPS", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+        });
+        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
         alert.show();
     }
 
@@ -297,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    protected void startIntentService() {
+    protected void startIntentService(Location mLocation) {
         Intent intent = new Intent(this, FetchAddressIntentService.class);
         intent.putExtra(Constants.RECEIVER, mResultReceiver);
         intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLocation);

@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -44,6 +45,7 @@ public class AchievementActivity extends AppCompatActivity {
     }
 
     public void shareHighscore(View v) {
+        Log.d("share","Share highscore");
         TextView score = (TextView) findViewById(R.id.highscore);
         String message = R.string.share_template_1 + score.getText().toString() + R.string.share_template_2;
         Intent intent = new Intent(Intent.ACTION_SEND);
