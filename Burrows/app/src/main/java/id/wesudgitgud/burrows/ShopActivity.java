@@ -79,6 +79,7 @@ public class ShopActivity extends AppCompatActivity {
 
 
                         DatabaseReference userDB = FirebaseDatabase.getInstance().getReference().child("user").child(username).child("money");
+
                         Log.d("buyitem","setvalueuser");
                         userDB.setValue(u.money);
                         Log.d("buyitem","setvalueitem");

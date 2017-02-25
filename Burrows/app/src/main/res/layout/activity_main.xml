@@ -12,7 +12,12 @@
         android:background="@drawable/bg_start"
         android:id="@+id/main_back">
 
-        <include layout="@layout/inc_title_menu_bar"></include>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/inc_title_menu_bar"></include>
+
+        </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
