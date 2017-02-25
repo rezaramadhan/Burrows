@@ -10,42 +10,46 @@
         <RelativeLayout
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="5dp">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/logo_burrows_mini"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:background="@drawable/menu_icon_shop"
                 android:id="@+id/btnShop"
-                android:onClick="gotoShop"/>
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/logo_burrows_mini"
+                android:onClick="gotoShop"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/btnItem"
-                android:onClick="gotoItem"/>
+                android:layout_alignParentStart="true" />
 
         </RelativeLayout>
         <RelativeLayout
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="7dp">
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/logo_burrows_mini"
+                android:background="@drawable/menu_icon_items"
+                android:id="@+id/btnItem"
+                android:onClick="gotoItem"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="3dp">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/menu_icon_friends"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -56,11 +60,12 @@
         <RelativeLayout
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="5dp">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/logo_burrows_mini"
+                android:background="@drawable/menu_icon_achievement"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
