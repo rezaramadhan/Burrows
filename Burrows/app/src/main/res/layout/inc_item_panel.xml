@@ -9,8 +9,6 @@
         android:layout_height="100dp"
         android:layout_margin="5dp"
         android:padding="5dp"
-        android:id="@+id/btn_apple"
-        android:onClick="buyApple"
         android:background="@drawable/bg_wood">
 
         <ImageView
@@ -41,15 +39,16 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/icon_coin"
+                    android:src="@drawable/menu_icon_items"
                     android:padding="7dp"/>
                 <TextView
                     android:layout_weight="2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:paddingTop="5dp"
-                    android:text="500"
+                    android:text="0"
                     android:textSize="25dp"
+                    android:id="@+id/n_Apple"
                     style="@style/BlackText"/>
 
             </LinearLayout>
@@ -64,7 +63,6 @@
         android:layout_height="100dp"
         android:layout_margin="5dp"
         android:padding="5dp"
-        android:onClick="buyGrape"
         android:background="@drawable/bg_wood">
 
         <ImageView
@@ -96,13 +94,14 @@
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:padding="7dp"
-                    android:src="@drawable/icon_coin"/>
+                    android:src="@drawable/menu_icon_items"/>
                 <TextView
                     android:layout_weight="2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:paddingTop="5dp"
-                    android:text="300"
+                    android:text="0"
+                    android:id="@+id/n_Grape"
                     android:textSize="25dp"
                     style="@style/BlackText"/>
 
@@ -117,7 +116,6 @@
         android:layout_height="100dp"
         android:layout_margin="5dp"
         android:padding="5dp"
-        android:onClick="buyBanana"
         android:background="@drawable/bg_wood">
 
         <ImageView
@@ -149,13 +147,14 @@
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:padding="7dp"
-                    android:src="@drawable/icon_coin"/>
+                    android:src="@drawable/menu_icon_items"/>
                 <TextView
                     android:layout_weight="2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:paddingTop="5dp"
-                    android:text="700"
+                    android:text="0"
+                    android:id="@+id/n_Banana"
                     style="@style/BlackText"
                     android:textSize="25dp" />
 

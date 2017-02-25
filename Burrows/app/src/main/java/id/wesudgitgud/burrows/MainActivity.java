@@ -221,12 +221,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     protected void onStart() {
-        mGoogleApiClient.connect();
+//        mGoogleApiClient.connect();
         super.onStart();
     }
 
     protected void onStop() {
-        mGoogleApiClient.disconnect();
+//        mGoogleApiClient.disconnect();
         SharedPreferences settings = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         ViewFlipper pet_image = (ViewFlipper) findViewById(R.id.viewFlipper);

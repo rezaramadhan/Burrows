@@ -59,6 +59,7 @@
                             android:background="@color/colorAccent"
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
+                            android:onClick="shareHighscore"
                             android:layout_marginBottom="42dp" />
 
                         <TextView

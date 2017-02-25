@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import id.wesudgitgud.burrows.fragments.LoginFragment;
+import id.wesudgitgud.burrows.models.Pet;
 import id.wesudgitgud.burrows.models.User;
 import id.wesudgitgud.burrows.models.UserData;
 
@@ -178,6 +179,21 @@ public class RegisterActivity extends AppCompatActivity {
 
         DatabaseReference newUserRef = userDatabase.child(username);
         newUserRef.setValue(newuser);
+
+        createUserPet(username);
     }
+
+    private void createUserPet(String username) {
+        DatabaseReference petReference = FirebaseDatabase.getInstance().getReference().child("userpet").child(username);
+
+        Pet p = new Pet("rabbit");
+        petReference.child("rabbit").setValue(p);
+        p.name = "mouse";
+        petReference.child("mouse").setValue(p);
+        p.name = "beaver";
+        petReference.child("beaver").setValue(p);
+
+    }
+
 
 }
