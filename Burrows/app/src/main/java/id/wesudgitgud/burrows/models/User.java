@@ -42,7 +42,7 @@ public class User extends UserData{
         try {
             JSONArray oldFriends;
             Log.d(TAG, databaseManager.getData());
-            if (databaseManager.getData() != null)
+            if (databaseManager.getData() == null || databaseManager.getData().equals("null"))
                 oldFriends = new JSONArray();
             else
                 oldFriends = databaseManager.getJSONArray();

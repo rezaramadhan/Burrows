@@ -55,11 +55,13 @@ public class FriendsActivity extends AppCompatActivity  {
         startActivity(new Intent(this, FriendsActivity.class));
     }
 
-<<<<<<< HEAD
     public void gotoChat(View v) {
         startActivity(new Intent(this, ChatActivity.class));
     }
-=======
     public void getFriendLocation(View v)  { startActivity(new Intent(this, FriendLocationActivity.class)); }
->>>>>>> bda952dcf164c6a35a2b0b0c320e4193323856f5
+
+
+    public void gotoAddFriend(View v) {
+        startActivity(new Intent(this, AddFriendActivity.class));
+    }
 }
