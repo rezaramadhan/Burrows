@@ -27,7 +27,7 @@
         <activity android:name=".AchievementActivity" />
         <activity android:name=".ItemsActivity" />
         <activity android:name=".RegisterActivity"></activity>
-
+        <activity android:name=".FriendLocationActivity"></activity>
         <service android:name=".services.FirebaseMsgService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
