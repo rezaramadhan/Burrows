@@ -107,8 +107,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btnLogin)
-            check();
-//            login(fieldEmail.getText().toString(), fieldPassword.getText().toString());
+            //check();
+            login(fieldEmail.getText().toString(), fieldPassword.getText().toString());
         else if (id == R.id.textRegister)
             changeToRegisterActivity();
 

@@ -68,7 +68,19 @@ public class AchievementActivity extends AppCompatActivity {
         startActivity(new Intent(this, FriendsActivity.class));
     }
 
-    public void shareHighscore(View v) {
+    public void getHighscore() throws JSONException {
+        FirebaseUser FU = FirebaseAuth.getInstance().getCurrentUser();
+        if (FU != null) {
+            String username = "user/" + FU.getDisplayName();
+            DatabaseManager data = new DatabaseManager(username);
+            Log.d("test", "testdone");
+            String score = data.getJSONDObject().getString("highscore");
+            TextView score_view = (TextView) findViewById(R.id.highscore);
+            score_view.setText(score);
+        }
+    }
+
+    public void shareHighscore(View view) {
         Log.d("share","Share highscore");
         TextView score = (TextView) findViewById(R.id.highscore);
         String message = R.string.share_template_1 + score.getText().toString() + R.string.share_template_2;
@@ -81,17 +93,5 @@ public class AchievementActivity extends AppCompatActivity {
         boolean isIntentSafe = activities.size() > 0;
         if (isIntentSafe)
             startActivity(intent);
-    }
-
-    public void getHighscore() throws JSONException {
-        FirebaseUser FU = FirebaseAuth.getInstance().getCurrentUser();
-        if (FU != null) {
-            String username = "user/" + FU.getDisplayName();
-            DatabaseManager data = new DatabaseManager(username);
-            Log.d("test", "testdone");
-            String score = data.getJSONDObject().getString("highscore");
-            TextView score_view = (TextView) findViewById(R.id.highscore);
-            score_view.setText(score);
-        }
     }
 }
