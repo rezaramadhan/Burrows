@@ -3,6 +3,7 @@ package id.wesudgitgud.burrows;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -38,14 +39,22 @@ public class AddFriendActivity extends AppCompatActivity {
     }
 
     public void addFriend(View view) {
-        String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        final String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
 
-        String newFriend = ((EditText) findViewById(R.id.formNewFriend)).getText().toString();
+        final String newFriend = ((EditText) findViewById(R.id.formNewFriend)).getText().toString();
         DatabaseManager dbm = new DatabaseManager("user/" + newFriend);
 
-        if (!dbm.getData().equals("null")) {
-            User u = new User(username);
-            u.addFriend(newFriend);
+        if (dbm.getData() != null && !dbm.getData().equals("null")) {
+            Thread t1 = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    User u = new User(username);
+                    Log.d("AddUser", username + "is being added");
+                    u.addFriend(newFriend);
+                }
+            });
+            t1.run();
+            Toast.makeText(AddFriendActivity.this, "" + newFriend + "is added as a friend!", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(AddFriendActivity.this, "There's no user with username " + newFriend + "!", Toast.LENGTH_SHORT).show();
         }

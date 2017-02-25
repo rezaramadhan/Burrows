@@ -39,4 +39,8 @@ public class FriendsActivity extends AppCompatActivity  {
     public void gotoChat(View v) {
         startActivity(new Intent(this, ChatActivity.class));
     }
+
+    public void gotoAddFriend(View v) {
+        startActivity(new Intent(this, AddFriendActivity.class));
+    }
 }
