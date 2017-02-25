@@ -3,8 +3,6 @@
 
 A User Interface for the game Burrows
 
-By WeSudGitGud
-
 ## Features
 ------
 
@@ -43,3 +41,11 @@ You can also stalk them (lol)
 1. Get APK file
 2. Install APK on device  
 And done!
+
+------
+
+Created by WeSudGitGud
+
+A creative team of 2 guys and 1 girl
+
+13514007 - 13514107 - 13514109
