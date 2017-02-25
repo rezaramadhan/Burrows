@@ -1,14 +1,20 @@
 package id.wesudgitgud.burrows;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import static id.wesudgitgud.burrows.R.layout.inc_friend_panel;
 
 public class FriendsActivity extends AppCompatActivity  {
 
@@ -16,6 +22,19 @@ public class FriendsActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
+
+        for(int i = 0; i<3; i++){
+            addNewFriend("Friend" + i);
+        }
+    }
+
+    public void addNewFriend(String name){
+        ViewGroup container = (ViewGroup)findViewById(R.id.container);
+        View myLayout = getLayoutInflater().inflate(inc_friend_panel, null);
+        TextView friendName = (TextView) myLayout.findViewById(R.id.textFriendName);
+        friendName.setText(name);
+        container.addView(myLayout); // you can pass extra layout params here too
+
     }
 
     public void gotoMain(View v) {
