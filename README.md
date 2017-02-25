@@ -44,7 +44,7 @@ And done!
 
 ------
 
-Created by WeSudGitGud
+Created by **WeSudGitGud**
 
 A creative team of 2 guys and 1 girl
 
