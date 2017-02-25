@@ -35,11 +35,18 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import id.wesudgitgud.burrows.Controller.DatabaseManager;
 import id.wesudgitgud.burrows.models.Constants;
 
 import static com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY;
@@ -111,14 +118,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pet_image.setDisplayedChild(current);
 
         Log.d("petnum_start",String.valueOf(current));
+
+        try {
+            updateInfo();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onClick(View view){
         if (view == next){
             viewFlipper.showNext();
+            Log.d("petnum",String.valueOf(viewFlipper.getDisplayedChild()));
         } else {
             viewFlipper.showPrevious();
+            Log.d("petnum",String.valueOf(viewFlipper.getDisplayedChild()));
+        }
+        try {
+            updateInfo();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
@@ -321,5 +341,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra(Constants.RECEIVER, mResultReceiver);
         intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLocation);
         startService(intent);
+    }
+
+    private void updateInfo() throws JSONException {
+        FirebaseUser FU = FirebaseAuth.getInstance().getCurrentUser();
+        if (FU != null) {
+            String username = "user/" + FU.getDisplayName();
+            DatabaseManager data = new DatabaseManager(username);
+
+            String exp = data.getJSONDObject().getString("exp");
+            String money = data.getJSONDObject().getString("money");
+            int lvl = Integer.parseInt(exp)/1000;
+
+            TextView exp_view = (TextView) findViewById(R.id.exp_view);
+            TextView money_view = (TextView) findViewById(R.id.money_view);
+            TextView level = (TextView) findViewById(R.id.level);
+
+            exp_view.setText(exp + "/1000");
+            money_view.setText(money);
+            level.setText(String.valueOf(lvl));
+
+            String userpet = "userpet/" + FU.getDisplayName();
+            DatabaseManager petdata = new DatabaseManager(userpet);
+
+            ViewFlipper petview = (ViewFlipper) findViewById(R.id.viewFlipper);
+            Log.d("petnumup",String.valueOf(petview.getDisplayedChild()));
+            JSONObject petinfo = petdata.getJSONDObject();
+            TextView pet_exp_view = (TextView) findViewById(R.id.pet_exp_b);
+            TextView pet_lvl_view = (TextView) findViewById(R.id.pet_lvl_b);
+
+            switch (petview.getDisplayedChild()) {
+                case 0:
+                    petinfo = petinfo.getJSONObject("beaver");
+                    break;
+                case 1:
+                    petinfo = petinfo.getJSONObject("mouse");
+                    pet_exp_view = (TextView) findViewById(R.id.pet_exp_m);
+                    pet_lvl_view = (TextView) findViewById(R.id.pet_lvl_m);
+                    break;
+                case 2:
+                    petinfo = petinfo.getJSONObject("rabbit");
+                    pet_exp_view = (TextView) findViewById(R.id.pet_exp_r);
+                    pet_lvl_view = (TextView) findViewById(R.id.pet_lvl_r);
+                    break;
+            }
+
+            String pet_exp = petinfo.getString("exp");
+            String pet_lvl = petinfo.getString("lv");
+
+            pet_exp_view.setText(pet_exp + "/1000");
+            pet_lvl_view.setText(pet_lvl);
+        }
     }
 }
