@@ -35,10 +35,10 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        String username = firebaseUser.getDisplayName();
-
-        tokenDatabaseRef = FirebaseDatabase.getInstance().getReference().child("user").child(username).child("token");
-        tokenDatabaseRef.setValue(refreshedToken);
+        if (firebaseUser != null) {
+            String username = firebaseUser.getDisplayName();
+            tokenDatabaseRef = FirebaseDatabase.getInstance().getReference().child("user").child(username).child("token");
+            tokenDatabaseRef.setValue(refreshedToken);
+        }
     }
 }
