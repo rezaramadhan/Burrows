@@ -1,6 +1,9 @@
 package id.wesudgitgud.burrows;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +29,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import org.json.JSONException;
 
 import id.wesudgitgud.burrows.Controller.ChatManager;
+import id.wesudgitgud.burrows.fragments.LoginFragment;
 import id.wesudgitgud.burrows.models.Item;
 import id.wesudgitgud.burrows.models.Pet;
 import id.wesudgitgud.burrows.models.User;
@@ -45,6 +49,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        FragmentManager fragmentManager = getFragmentManager();
+
+        // beginTransaction() begins the FragmentTransaction which allows you to
+        // add, attach, detach, hide, remove, replace, animate, transition or
+        // show fragments
+        FragmentTransaction fragmentTransaction =
+                fragmentManager.beginTransaction();
+
+        // The Configuration object provides device configuration info
+        // http://developer.android.com/reference/android/content/res/Configuration.html
+        Configuration configInfo = getResources().getConfiguration();
+
+        // Depending on the screen orientation replace with the correct fragment
+        if(configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE){
+
+            LoginFragment fragmentLandscape = new LoginFragment(false);
+
+            fragmentTransaction.replace(R.id.imageTitle,
+                    fragmentLandscape);
+
+        } else {
+
+            LoginFragment fragmentPortrait = new LoginFragment(true);
+
+            fragmentTransaction.replace(R.id.imageTitle,
+                    fragmentPortrait);
+        }
+
+        // Schedule for the replacement of the Fragment as soon as possible
+        fragmentTransaction.commit();
+
         setContentView(R.layout.activity_login);
 
         fieldPassword = (EditText) findViewById(R.id.formPassword);
