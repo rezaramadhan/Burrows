@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void gotoShop(View v) {
         startActivity(new Intent(MainActivity.this, ShopActivity.class));
-        shareFacebook("test");
+        shareHighscore("test");
     }
 
     public void gotoItem(View v) {
@@ -302,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startService(intent);
     }
 
-    private void shareFacebook(String message) {
+    private void shareHighscore(String message) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, message);
@@ -310,7 +310,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         PackageManager packageManager = getPackageManager();
         List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
         boolean isIntentSafe = activities.size() > 0;
-        
         if (isIntentSafe)
             startActivity(intent);
     }
