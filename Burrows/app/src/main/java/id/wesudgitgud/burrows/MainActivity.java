@@ -52,12 +52,7 @@ import id.wesudgitgud.burrows.models.Constants;
 import static com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
-    /*, GoogleApiClient.ConnectionCallbacks,
-    GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener*/
-    private static final String TAG = "MainActivity";
-    private static final long UPDATE_INTERVAL = 300000;
-    private static final long FASTEST_INTERVAL = 200000;
-    private static final int REQUEST_LOCATION_PERMISSION = 744;
+
     ViewFlipper viewFlipper;
     Button next;
     Button prev;
@@ -65,11 +60,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SensorManager sensorManager;
     private long lastUpdate;
     private TextView editShake;
-
-    private GoogleApiClient mGoogleApiClient;
-    //private AddressResultReceiver mResultReceiver;
-    //private Location mLocation;
-    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,28 +79,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         lastUpdate = System.currentTimeMillis();
         editShake = (TextView) findViewById(R.id.textView2);
-
-//        mGoogleApiClient = new GoogleApiClient.Builder(this)
-//                .addConnectionCallbacks(this)
-//                .addOnConnectionFailedListener(this)
-//                .addApi(LocationServices.API)
-//                .build();
-//
-//        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
-//        }
-//
-//        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-//
-//        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-//            Log.d("gps_on","GPS is on");
-//            Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
-//        }else{
-//            Log.d("gps_off","GPS is off");
-//            showGPSDisabledAlertToUser();
-//        }
-//
-//        mResultReceiver = new AddressResultReceiver(new android.os.Handler());
 
         SharedPreferences settings = getPreferences(MODE_PRIVATE);
         int current = settings.getInt("petnum",0);
@@ -241,12 +209,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     protected void onStart() {
-//        mGoogleApiClient.connect();
         super.onStart();
     }
 
     protected void onStop() {
-//        mGoogleApiClient.disconnect();
         SharedPreferences settings = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         ViewFlipper pet_image = (ViewFlipper) findViewById(R.id.viewFlipper);
@@ -258,90 +224,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         super.onStop();
     }
-
-//    @Override
-//    @SuppressWarnings({"MissingPermission"})
-//    public void onConnected(@Nullable Bundle bundle) {
-//        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
-//        }
-//        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-//            LocationRequest mLocationRequest = new LocationRequest();
-//            mLocationRequest.setPriority(PRIORITY_HIGH_ACCURACY);
-//            mLocationRequest.setInterval(UPDATE_INTERVAL);
-//            mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
-//            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-//            Location mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-//            startIntentService(mLocation);
-//        }
-//    }
-//
-//    @Override
-//    public void onConnectionSuspended(int i) {
-//        Log.i(TAG, "Connection Suspended");
-//        mGoogleApiClient.connect();
-//    }
-//
-//    @Override
-//    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-//        Log.i(TAG, "Connection failed. Error: " + connectionResult.getErrorCode());
-//    }
-//
-//    @Override
-//    public void onLocationChanged(Location location) {
-//        startIntentService(location);
-//    }
-//
-//    private void showGPSDisabledAlertToUser(){
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setCancelable(false);
-//        builder.setMessage("GPS is disabled in your device. Would you like to enable it?");
-//        builder.setPositiveButton("Go to settings to enable GPS", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int which) {
-//                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-//            }
-//        });
-//        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//            }
-//        });
-//        AlertDialog alert = builder.create();
-//        alert.show();
-//    }
-//
-//    class AddressResultReceiver extends ResultReceiver {
-//        public AddressResultReceiver(Handler handler) {
-//            super(handler);
-//        }
-//
-//        @Override
-//        protected void onReceiveResult(int resultCode, Bundle resultData) {
-//
-//            // Display the address string
-//            // or an error message sent from the intent service.
-//            String mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
-//            String[] temp = mAddressOutput.split("\n");
-//            List<String> addressComponent = new ArrayList<String>(Arrays.asList(temp));
-//            try {
-//                Log.d("Loc", addressComponent.get(3).substring(5));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            // Show a toast message if an address was found.
-//            if (resultCode == Constants.SUCCESS_RESULT) {
-//                Toast.makeText(MainActivity.this, R.string.address_found, Toast.LENGTH_SHORT).show();
-//            }
-//
-//        }
-//    }
-//
-//    protected void startIntentService(Location mLocation) {
-//        Intent intent = new Intent(this, FetchAddressIntentService.class);
-//        intent.putExtra(Constants.RECEIVER, mResultReceiver);
-//        intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLocation);
-//        startService(intent);
-//    }
 
     private void updateInfo() throws JSONException {
         FirebaseUser FU = FirebaseAuth.getInstance().getCurrentUser();
