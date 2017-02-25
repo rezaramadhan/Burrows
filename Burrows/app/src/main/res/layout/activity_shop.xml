@@ -17,125 +17,22 @@
 
         <include layout="@layout/inc_title_menu_bar"></include>
 
-        <LinearLayout
+        <ScrollView
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
-            <TabHost
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="0dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    <include layout="@layout/inc_product_panel"></include>
 
-                    <TabWidget
-                        android:id="@android:id/tabs"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+            </LinearLayout>
 
-                    <FrameLayout
-                        android:id="@android:id/tabcontent"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+        </ScrollView>
 
-                        <LinearLayout
-                            android:id="@+id/all"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                            <include layout="@layout/inc_product_panel"></include>
-                            <include layout="@layout/inc_product_panel"></include>
-
-                            <ScrollView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical" >
-
-                                    <ListView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent" />
-                                </LinearLayout>
-                            </ScrollView>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/fruit"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                            <ScrollView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical" >
-
-                                    <ListView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent" />
-                                </LinearLayout>
-                            </ScrollView>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/pet"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                            <ScrollView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical" >
-
-                                    <ListView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent" />
-                                </LinearLayout>
-                            </ScrollView>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/misc"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                            <ScrollView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical" >
-
-                                    <ListView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent" />
-                                </LinearLayout>
-                            </ScrollView>
-                        </LinearLayout>
-                    </FrameLayout>
-                </LinearLayout>
-
-
-            </TabHost>
-        </LinearLayout>
         <include layout="@layout/inc_menu_bar"></include>
     </LinearLayout>
 

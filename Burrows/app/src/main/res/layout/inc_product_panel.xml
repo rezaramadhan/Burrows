@@ -15,7 +15,7 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/logo_burrows_mini"/>
+            android:src="@drawable/fruit_apple"/>
 
         <LinearLayout
             android:orientation="vertical"
@@ -27,7 +27,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Product Name"
+                android:text="Apple"
+                style="@style/BlackText"
                 android:textSize="30dp"/>
 
             <LinearLayout
@@ -38,13 +39,120 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/logo_burrows_mini"/>
+                    android:src="@drawable/icon_coin"
+                    android:padding="7dp"/>
                 <TextView
                     android:layout_weight="2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:paddingTop="5dp"
-                    android:text="Price"
+                    android:text="500"
+                    android:textSize="25dp"
+                    style="@style/BlackText"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:background="@drawable/bg_wood">
+
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fruit_grape"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Grape"
+                android:textSize="30dp"
+                style="@style/BlackText"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:padding="7dp"
+                    android:src="@drawable/icon_coin"/>
+                <TextView
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:paddingTop="5dp"
+                    android:text="300"
+                    android:textSize="25dp"
+                    style="@style/BlackText"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:background="@drawable/bg_wood">
+
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fruit_banana"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Banana"
+                android:textSize="30dp"
+                style="@style/BlackText"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:padding="7dp"
+                    android:src="@drawable/icon_coin"/>
+                <TextView
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:paddingTop="5dp"
+                    android:text="700"
+                    style="@style/BlackText"
                     android:textSize="25dp" />
 
             </LinearLayout>
