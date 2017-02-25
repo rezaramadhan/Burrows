@@ -83,27 +83,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lastUpdate = System.currentTimeMillis();
         editShake = (TextView) findViewById(R.id.textView2);
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            Log.d("gps_on","GPS is on");
-            Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
-        }else{
-            Log.d("gps_off","GPS is off");
-            showGPSDisabledAlertToUser();
-        }
-
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
-        }
-
-        mResultReceiver = new AddressResultReceiver(new android.os.Handler());
+//        mGoogleApiClient = new GoogleApiClient.Builder(this)
+//                .addConnectionCallbacks(this)
+//                .addOnConnectionFailedListener(this)
+//                .addApi(LocationServices.API)
+//                .build();
+//
+//        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+//
+//        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+//            Log.d("gps_on","GPS is on");
+//            Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
+//        }else{
+//            Log.d("gps_off","GPS is off");
+//            showGPSDisabledAlertToUser();
+//        }
+//
+//        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
+//        }
+//
+//        mResultReceiver = new AddressResultReceiver(new android.os.Handler());
 
         SharedPreferences settings = getPreferences(MODE_PRIVATE);
         int current = settings.getInt("petnum",0);
@@ -221,12 +221,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     protected void onStart() {
-        mGoogleApiClient.connect();
+//        mGoogleApiClient.connect();
         super.onStart();
     }
 
     protected void onStop() {
-        mGoogleApiClient.disconnect();
+//        mGoogleApiClient.disconnect();
         SharedPreferences settings = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         ViewFlipper pet_image = (ViewFlipper) findViewById(R.id.viewFlipper);

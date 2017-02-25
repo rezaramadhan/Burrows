@@ -41,7 +41,7 @@ public class Item {
     }
 
     public void buyItem(String buyerUsername) {
-        Log.d(TAG, "buy" + buyerUsername);
+        Log.d(TAG, "buy-------------------" + buyerUsername);
         userItemDBRef = FirebaseDatabase.getInstance().getReference().child("useritem").child(buyerUsername).child(type);
 
         int itemIdx = findUserItem(buyerUsername);
@@ -68,10 +68,10 @@ public class Item {
             DatabaseManager db = new DatabaseManager("useritem/" + buyerUsername + "/" + type);
 
             try {
-                if (db.getData() != null)
-                    items = db.getJSONArray();
-                else
+                if (db.getData() == null || db.getData().equals("null"))
                     items = new JSONArray();
+                else
+                    items = db.getJSONArray();
 
                 items.put(new JSONObject(newItem));
 //                Log.d(TAG, "Arr\n" + items.toString());
@@ -95,7 +95,7 @@ public class Item {
         try {
 
             Log.d(TAG, "Arr data \n" + db.getData());
-            if (db.getData() == null)
+            if (db.getData() == null || db.getData().equals("null"))
                 return -1;
             JSONArray items = db.getJSONArray();
             Log.d(TAG, "Arr Usrhasitem  \n" + items.toString());

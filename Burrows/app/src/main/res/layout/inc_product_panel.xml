@@ -9,6 +9,8 @@
         android:layout_height="100dp"
         android:layout_margin="5dp"
         android:padding="5dp"
+        android:id="@+id/btn_apple"
+        android:onClick="buyApple"
         android:background="@drawable/bg_wood">
 
         <ImageView
@@ -62,6 +64,7 @@
         android:layout_height="100dp"
         android:layout_margin="5dp"
         android:padding="5dp"
+        android:onClick="buyGrape"
         android:background="@drawable/bg_wood">
 
         <ImageView
@@ -114,6 +117,7 @@
         android:layout_height="100dp"
         android:layout_margin="5dp"
         android:padding="5dp"
+        android:onClick="buyBanana"
         android:background="@drawable/bg_wood">
 
         <ImageView

@@ -1,5 +1,6 @@
 package id.wesudgitgud.burrows.Controller;
 
+import android.os.StrictMode;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -28,6 +29,7 @@ public class DatabaseManager {
 
     public DatabaseManager(String loc){
         this.location = baseLoc + loc + ".json";
+
         fetchData();
     }
 
