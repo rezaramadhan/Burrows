@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -11,6 +12,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.ResultReceiver;
@@ -115,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void gotoShop(View v) {
         startActivity(new Intent(MainActivity.this, ShopActivity.class));
+        shareFacebook("test");
     }
 
     public void gotoItem(View v) {
@@ -297,5 +300,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra(Constants.RECEIVER, mResultReceiver);
         intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLocation);
         startService(intent);
+    }
+
+    private void shareFacebook(String message) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+
+        PackageManager packageManager = getPackageManager();
+        List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
+        boolean isIntentSafe = activities.size() > 0;
+        
+        if (isIntentSafe)
+            startActivity(intent);
     }
 }
