@@ -89,6 +89,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .addApi(LocationServices.API)
                 .build();
 
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
+        }
+
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
@@ -97,10 +101,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else{
             Log.d("gps_off","GPS is off");
             showGPSDisabledAlertToUser();
-        }
-
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
         }
 
         mResultReceiver = new AddressResultReceiver(new android.os.Handler());
@@ -242,6 +242,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     @SuppressWarnings({"MissingPermission"})
     public void onConnected(@Nullable Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
+        }
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             LocationRequest mLocationRequest = new LocationRequest();
             mLocationRequest.setPriority(PRIORITY_HIGH_ACCURACY);

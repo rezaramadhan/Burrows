@@ -3,13 +3,22 @@ package id.wesudgitgud.burrows;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.StrictMode;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONException;
+
 import java.util.List;
+
+import id.wesudgitgud.burrows.Controller.DatabaseManager;
 
 public class AchievementActivity extends AppCompatActivity {
 
@@ -22,6 +31,21 @@ public class AchievementActivity extends AppCompatActivity {
 
         TextView titleMenu = (TextView)findViewById(R.id.textTitleMenu);
         titleMenu.setText("Achievement");
+
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
+        try {
+            getHighscore();
+        } catch (JSONException e) {
+            Log.e("error","json not found");
+            e.printStackTrace();
+        }
     }
 
     public void gotoMain(View v) {
@@ -57,5 +81,17 @@ public class AchievementActivity extends AppCompatActivity {
         boolean isIntentSafe = activities.size() > 0;
         if (isIntentSafe)
             startActivity(intent);
+    }
+
+    public void getHighscore() throws JSONException {
+        FirebaseUser FU = FirebaseAuth.getInstance().getCurrentUser();
+        if (FU != null) {
+            String username = "user/" + FU.getDisplayName();
+            DatabaseManager data = new DatabaseManager(username);
+            Log.d("test", "testdone");
+            String score = data.getJSONDObject().getString("highscore");
+            TextView score_view = (TextView) findViewById(R.id.highscore);
+            score_view.setText(score);
+        }
     }
 }
