@@ -44,7 +44,7 @@ public class Item {
         Log.d(TAG, "buy" + buyerUsername);
         userItemDBRef = FirebaseDatabase.getInstance().getReference().child("useritem").child(buyerUsername).child(type);
 
-        int itemIdx = isUserHasItem(buyerUsername);
+        int itemIdx = findUserItem(buyerUsername);
         if (itemIdx != -1) {
             Log.d(TAG, "EXISTING ITEM");
             userItemDBRef = FirebaseDatabase.getInstance().getReference().child("useritem").child(buyerUsername).child(type).child(Integer.toString(itemIdx)).child("quantity");
@@ -76,7 +76,7 @@ public class Item {
                 items.put(new JSONObject(newItem));
 //                Log.d(TAG, "Arr\n" + items.toString());
 
-                HashMap<String, Object> map = convertToFirebaseArray(items);
+                HashMap<String, Object> map = DatabaseManager.convertToFirebaseArray(items);
 //                Log.d(TAG, "Map\n"+ map.toString());
 
                 userItemDBRef.setValue(map);
@@ -88,25 +88,7 @@ public class Item {
         }
     }
 
-    private HashMap<String, Object> convertToFirebaseArray(JSONArray array) throws JSONException {
-        HashMap<String, Object> map = new HashMap<>();
-
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject jsn = array.getJSONObject(i);
-            JSONArray names = jsn.names();
-//            Log.d(TAG, "names\n " + names.toString());
-            HashMap<String, Object> insidemap = new HashMap<>();
-
-            for(int j = 0; j < names.length(); j++) {
-                insidemap.put(names.getString(j), jsn.get(names.getString(j)));
-            }
-            map.put(Integer.toString(i), insidemap);
-        }
-
-        return map;
-    }
-
-    private int isUserHasItem(String buyerUsername) {
+    private int findUserItem(String buyerUsername) {
         Log.d(TAG, "useritem/" + buyerUsername + "/" + type);
         DatabaseManager db = new DatabaseManager("useritem/" + buyerUsername + "/" + type);
 
@@ -128,6 +110,26 @@ public class Item {
         }
 
         return -1;
+    }
+
+    public void useItem(String ownerUsername) {
+        int itemIdx = findUserItem(ownerUsername);
+
+        if (itemIdx != -1) {
+            userItemDBRef = FirebaseDatabase.getInstance().getReference().child("useritem")
+                    .child(ownerUsername).child(type).child(Integer.toString(itemIdx)).child("quantity");
+
+            DatabaseManager db = new DatabaseManager("useritem/" + ownerUsername + "/" + type + "/" + Integer.toString(itemIdx) + "");
+            Log.d(TAG, "data\n" + db.getData());
+            String quantity = null;
+            try {
+                quantity = db.getJSONDObject().getString("quantity");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            int newQuantity = Integer.parseInt(quantity) - 1;
+            userItemDBRef.setValue(newQuantity);
+        }
     }
 
 }

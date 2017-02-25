@@ -83,8 +83,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void check() {
-        Item item = new Item("fruits", "grape", 300);
-        item.buyItem("rezaramadhan");
+        User u = new User("resakemal");
+
+        u.addFriend("umay");
     }
 
     private boolean validateForm() {

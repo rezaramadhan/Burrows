@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 
 /**
  * Created by rezaramadhan on 25/02/2017.
@@ -67,5 +68,28 @@ public class DatabaseManager {
 
     public String getData() {
         return this.data;
+    }
+
+    public static HashMap<String, Object> convertToFirebaseArray(JSONArray array) throws JSONException {
+        HashMap<String, Object> map = new HashMap<>();
+
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject jsn = array.getJSONObject(i);
+            JSONArray names = jsn.names();
+//            Log.d(TAG, "names\n " + names.toString());
+            HashMap<String, Object> insidemap = new HashMap<>();
+
+            for(int j = 0; j < names.length(); j++) {
+                insidemap.put(names.getString(j), jsn.get(names.getString(j)));
+            }
+            map.put(Integer.toString(i), insidemap);
+        }
+
+        return map;
+    }
+
+    public void setURL(String url) {
+        this.location = baseLoc + url + ".json";
+        fetchData();
     }
 }

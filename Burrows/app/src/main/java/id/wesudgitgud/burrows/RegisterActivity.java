@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import id.wesudgitgud.burrows.models.User;
+import id.wesudgitgud.burrows.models.UserData;
 
 public class RegisterActivity extends AppCompatActivity {
     private final String TAG = "RegisterActivity";
@@ -136,7 +137,7 @@ public class RegisterActivity extends AppCompatActivity {
                     });
         }
 
-        User newuser = new User(email, fullname);
+        UserData newuser = new UserData(email, fullname);
 
         Log.d(TAG, "createuser");
 
