@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.CharacterPickerDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,9 +19,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 
+import id.wesudgitgud.burrows.Controller.ChatManager;
 import id.wesudgitgud.burrows.models.Pet;
 import id.wesudgitgud.burrows.models.User;
 
@@ -36,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -63,8 +69,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btnLogin)
-//            check();
-            login(fieldEmail.getText().toString(), fieldPassword.getText().toString());
+            check();
+//            login(fieldEmail.getText().toString(), fieldPassword.getText().toString());
         else if (id == R.id.textRegister)
             changeToRegisterActivity();
 
@@ -75,15 +81,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void check() {
-        Pet p = new Pet();
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "token : " + token);
 
-        try {
-            p.parseJSON("[{\"exp\":1400,\"lv\":1,\"name\":\"bona\"},{\"exp\":400,\"lv\":3,\"name\":\"rongrong\"},{\"exp\":50,\"lv\":5,\"name\":\"nirmala\"}]", 1);
-            Log.d(TAG, "petparsing\n" + p.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        ChatManager.getFirebaseToken();
 
+        ChatManager.sendChat("rezaramadhan", "Cobaccoba", "tessmessage yaaa");
     }
 
     private boolean validateForm() {
