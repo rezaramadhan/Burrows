@@ -285,8 +285,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
             String[] temp = mAddressOutput.split("\n");
             List<String> addressComponent = new ArrayList<String>(Arrays.asList(temp));
-            Log.d("Loc",addressComponent.get(3).substring(5));
-
+            try {
+                Log.d("Loc", addressComponent.get(3).substring(5));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             // Show a toast message if an address was found.
             if (resultCode == Constants.SUCCESS_RESULT) {
                 Toast.makeText(MainActivity.this, R.string.address_found, Toast.LENGTH_SHORT).show();
