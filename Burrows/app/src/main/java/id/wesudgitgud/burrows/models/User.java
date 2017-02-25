@@ -1,7 +1,12 @@
 package id.wesudgitgud.burrows.models;
 
+import android.app.Service;
 import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,111 +19,62 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import id.wesudgitgud.burrows.Controller.DatabaseManager;
+
 /**
  * Created by rezaramadhan on 23/02/2017.
  */
 
-public class User {
-    private String TAG = "User_Model";
+public class User extends UserData{
+    private String username;
+    private DatabaseManager databaseManager;
+    private DatabaseReference databaseReference;
 
-    public String fullname;
-    public String email;
-    public int exp;
-    public int money;
-    public int highscore;
-
-    public User() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    public User(String username) {
+        this.username = username;
+        databaseManager = new DatabaseManager("user/" + username);
     }
 
-    public User(String fullname, String email) {
-        this.fullname = fullname;
-        this.email = email;
-        this.exp = 0;
-        this.money = 1000;
-        this.highscore = 0;
-    }
+    private void addAsFriend(String myUsername, String friendUsername) {
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("friends").child(myUsername);
+        databaseManager.setURL("friends/" + myUsername);
 
-    public void retrieveUserData(String username) {
-        String location = "https://burrows-a36e9.firebaseio.com/user/" + username + ".json";
-
-        Log.d(TAG, "loc:\n" + location);
-        URL url;
-        HttpURLConnection urlConnection;
         try {
-            url = new URL(location);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            String resultJSON = getStringFromInputStream(in);
-            Log.d(TAG, "result \n" + resultJSON);
-            parseJSON(resultJSON);
-            urlConnection.disconnect();
-        } catch (MalformedURLException e) {
+            JSONArray oldFriends;
+            Log.d(TAG, databaseManager.getData());
+            if (databaseManager.getData() != null)
+                oldFriends = new JSONArray();
+            else
+                oldFriends = databaseManager.getJSONArray();
+
+            JSONObject newFriend = new JSONObject();
+            newFriend.put("uname", friendUsername);
+            oldFriends.put(newFriend);
+            databaseReference.setValue(DatabaseManager.convertToFirebaseArray(oldFriends));
+        } catch (JSONException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException je) {
-            je.printStackTrace();
         }
     }
 
-    private String getStringFromInputStream(InputStream in) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        StringBuilder out = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            out.append(line);
-        }
-
-        return out.toString();
+    public void addFriend(String friendUsername) {
+        addAsFriend(this.username, friendUsername);
+        addAsFriend(friendUsername, this.username);
     }
 
-    private void parseJSON(String json) throws JSONException {
-        JSONObject reader = new JSONObject(json);
-        this.email = reader.getString("email");
-        this.exp = reader.getInt("exp");
-        this.fullname = reader.getString("fullname");
-        this.highscore = reader.getInt("highscore");
-        this.money = reader.getInt("money");
-    }
+    public String[] getAllFriend() {
+        databaseManager.setURL("friends/" + username);
 
-    @Override
-    public String toString() {
-        String str = "";
-        str += "fullname " + fullname;
-        str += "\nemail " + email;
-        str += "\nexp " + exp;
-        str += "\nhighscore " + highscore;
-        str += "\nmoney " + money;
-        return str;
-    }
-
-    public static String getTokenFromUsername (String username) {
-        String location = "https://burrows-a36e9.firebaseio.com/user/" + username + "/token.json";
-
-        URL url;
-        HttpURLConnection urlConnection;
         try {
-            url = new URL(location);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            StringBuilder out = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                out.append(line);
+            JSONArray friends = databaseManager.getJSONArray();
+            String listFriend[] = new String[friends.length()];
+
+            for (int i = 0; i < friends.length(); i++) {
+                listFriend[i] = friends.getJSONObject(i).getString("uname");
             }
-
-            String token = out.toString();
-
-            urlConnection.disconnect();
-            return token;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            return  listFriend;
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        return "";
+        return  null;
     }
 }
