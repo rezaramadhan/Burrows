@@ -5,4 +5,6 @@
     <string name="no_address_found">No address found</string>
     <string name="address_found">Address found</string>
     <string name="dont_shake">Don\'t shake me :(</string>
+    <string name="share_template_1">I got a highscore of </string>
+    <string name="share_template_2"> in Burrows!</string>
 </resources>

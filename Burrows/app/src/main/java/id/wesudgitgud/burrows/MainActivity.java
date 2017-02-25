@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void gotoShop(View v) {
         startActivity(new Intent(MainActivity.this, ShopActivity.class));
-        shareHighscore("test");
     }
 
     public void gotoItem(View v) {
@@ -303,17 +302,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra(Constants.RECEIVER, mResultReceiver);
         intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLocation);
         startService(intent);
-    }
-
-    private void shareHighscore(String message) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, message);
-
-        PackageManager packageManager = getPackageManager();
-        List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
-        boolean isIntentSafe = activities.size() > 0;
-        if (isIntentSafe)
-            startActivity(intent);
     }
 }
