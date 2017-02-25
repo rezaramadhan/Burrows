@@ -41,5 +41,5 @@ You can also stalk them (lol)
 ## Installation
 ------
 1. Get APK file
-2. Install APK on device
+2. Install APK on device  
 And done!
