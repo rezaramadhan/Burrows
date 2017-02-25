@@ -6,6 +6,7 @@ A User Interface for the game Burrows
 By WeSudGitGud
 
 ## Features
+------
 
 ### Login & Register
 
