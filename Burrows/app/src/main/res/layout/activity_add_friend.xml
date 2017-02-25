@@ -51,10 +51,26 @@
             android:orientation="vertical"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_marginTop="200px"
+            >
 
-            <include layout="@layout/inc_friend_panel"></include>
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="username"
+                android:textAlignment="center"
+                android:ems="10"
+                android:id="@+id/formNewFriend" />
+
+            <Button
+                android:text="Add friend!"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="addFriend"
+                android:id="@+id/button2" />
         </LinearLayout>
 
         <include layout="@layout/inc_menu_bar"></include>
