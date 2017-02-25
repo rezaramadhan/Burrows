@@ -26,8 +26,10 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import org.json.JSONException;
 
 import id.wesudgitgud.burrows.Controller.ChatManager;
+import id.wesudgitgud.burrows.models.Item;
 import id.wesudgitgud.burrows.models.Pet;
 import id.wesudgitgud.burrows.models.User;
+import id.wesudgitgud.burrows.services.CounterTimeService;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private String TAG = "LoginActivity";
@@ -81,12 +83,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void check() {
-        String token = FirebaseInstanceId.getInstance().getToken();
-        Log.d(TAG, "token : " + token);
-
-//        ChatManager.getFirebaseToken();
-
-        ChatManager.sendChat("rezaramadhan", "Cobaccoba", "tessmessage yaaa");
+        Item item = new Item("fruits", "grape", 300);
+        item.buyItem("rezaramadhan");
     }
 
     private boolean validateForm() {
@@ -126,6 +124,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this, "Login success",
                             Toast.LENGTH_SHORT).show();
 
+                    ChatManager.getFirebaseToken();
 
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }
